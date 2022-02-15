@@ -1,26 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace TabloidCLI.Models
 {
-    public class Author
+    public class Journal
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Bio { get; set; }
-        public List<Tag> Tags { get; set; } = new List<Tag>();
-
-        public string FullName
-        {
-            get
-            {
-                return $"{FirstName} {LastName}";
-            }
-        }
-
-        public override string ToString()
-        {
-            return FullName;
-        }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public DateTime CreateDateTime { get; set; }
     }
 }

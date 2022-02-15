@@ -41,17 +41,7 @@ namespace TabloidCLI
         //left join or right, also figure out what you need to select
         public Tag Get(int id)
         {
-           //using (SqlConnection conn = Connection)
-           //{ conn.Open();
-           //    using (SqlCommand cmd = conn.CreateCommand())
-           //    {
-           //         cmd.CommandText = @"SELECT t.Id AS TagId,
-           //                                    t.Name,
-           //                              FROM Tag t         
-           //                             WHERE t.id = @id";
-
-           //            }
-           //}
+            throw new NotImplementedException();
         }
 
         public void Insert(Tag tag)
