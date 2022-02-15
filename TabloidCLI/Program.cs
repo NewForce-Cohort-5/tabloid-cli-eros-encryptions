@@ -6,6 +6,7 @@ namespace TabloidCLI
     {
         static void Main(string[] args)
         {
+            
             // MainMenuManager implements the IUserInterfaceManager interface
             IUserInterfaceManager ui = new MainMenuManager();
             while (ui != null)
@@ -14,6 +15,7 @@ namespace TabloidCLI
                 // When it returns null, we should exit the program;
                 ui = ui.Execute();
             }
+            Console.WriteLine("Welcome!");
         }
     }
 }
