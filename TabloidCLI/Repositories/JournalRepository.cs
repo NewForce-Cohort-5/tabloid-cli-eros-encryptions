@@ -56,7 +56,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Title, Content, CreateDateTime Journal Room WHERE Id = @id";
+                    cmd.CommandText = "SELECT Id, Title, Content, CreateDateTime Journal WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
 
