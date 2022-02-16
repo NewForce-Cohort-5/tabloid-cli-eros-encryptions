@@ -11,6 +11,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private PostRepository _postRepository;
         private string _connectionString;
         private AuthorRepository _authorRepository;
+        private BlogRepository _blogRepository;
 
 
         //Make cunstructor that sets values for private strings.
@@ -20,6 +21,7 @@ namespace TabloidCLI.UserInterfaceManagers
             _postRepository = new PostRepository(connectionString);
             _connectionString = connectionString;
             _authorRepository = new AuthorRepository(connectionString);
+            _blogRepository = new BlogRepository(connectionString);
         }
 
         public IUserInterfaceManager Execute()
@@ -114,12 +116,11 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Post URL: ");
             post.Url = Console.ReadLine();
 
-            post.PublishDateTime = DateTime.Now;
-
-            
             post.Author = ChooseAuthor();
 
+            post.Blog = ChooseBlog();
 
+            post.PublishDateTime = DateTime.Now;
 
             _postRepository.Insert(post);
         }
@@ -192,7 +193,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private Author ChooseBlog(string prompt = null)
+        private Blog ChooseBlog(string prompt = null)
         {
             if (prompt == null)
             {
@@ -201,12 +202,12 @@ namespace TabloidCLI.UserInterfaceManagers
 
             Console.WriteLine(prompt);
 
-            List<Author> authors = _authorRepository.GetAll();
+            List<Blog> blogs = _blogRepository.GetAll();
 
-            for (int i = 0; i < authors.Count; i++)
+            for (int i = 0; i < blogs.Count; i++)
             {
-                Author author = authors[i];
-                Console.WriteLine($" {i + 1}) {author.FullName}");
+                Blog blog = blogs[i];
+                Console.WriteLine($" {i + 1}) {blog.Title}");
             }
             Console.Write("> ");
 
@@ -214,7 +215,7 @@ namespace TabloidCLI.UserInterfaceManagers
             try
             {
                 int choice = int.Parse(input);
-                return authors[choice - 1];
+                return blogs[choice - 1];
             }
             catch (Exception ex)
             {
