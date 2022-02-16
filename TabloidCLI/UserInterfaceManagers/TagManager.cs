@@ -9,6 +9,8 @@ namespace TabloidCLI.UserInterfaceManagers
         public TagManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
+            //_tagRepository = new TagRepository(connectionString);
+            //_connectionString = connectionString;
         }
 
         public IUserInterfaceManager Execute()
@@ -46,12 +48,22 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void List()
         {
-            throw new NotImplementedException();
+            //List<Tag> tags = _tagRepository.GetAll();
+            //foreach (Tag tag in tags)
+            //{
+            //    Console.WriteLine(tag);
+            //}
         }
 
         private void Add()
         {
-            throw new NotImplementedException();
+            //Console.WriteLine("New Tag");
+            //Tag tag = new Tag();
+
+            //Console.Write("Name: ");
+            //tag.Name = Console.ReadLine();
+
+            //_tagRepository.Insert(tag);
         }
 
         private void Edit()
