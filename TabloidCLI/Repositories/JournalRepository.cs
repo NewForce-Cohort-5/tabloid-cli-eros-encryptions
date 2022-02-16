@@ -120,10 +120,10 @@ namespace TabloidCLI.Repositories
                     cmd.Parameters.AddWithValue("@title", journal.Title);
                     cmd.Parameters.AddWithValue("@content", journal.Content);
                     cmd.Parameters.AddWithValue("@createdatetime", journal.CreateDateTime);
-                    int id = (int)cmd.ExecuteScalar();
-                    
-                    journal.Id = id;
-                    //cmd.ExecuteNonQuery();
+                    //int id = (int)cmd.ExecuteScalar();
+
+                    //journal.Id = id;
+                    cmd.ExecuteNonQuery();
                 }
             }
 

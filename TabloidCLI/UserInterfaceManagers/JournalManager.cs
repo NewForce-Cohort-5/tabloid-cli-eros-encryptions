@@ -68,7 +68,7 @@ namespace TabloidCLI.UserInterfaceManagers
             foreach (Journal journal in journals)
             {
                 Console.WriteLine(journal.Title);
-                Console.WriteLine(journal);
+                Console.WriteLine(journal.Content);
             }
         }
 
@@ -143,7 +143,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 journalToEdit.Content = Content;
             }
             Console.Write("New Date here (blank to leave unchanged: ");
-            DateTime CreateDateTime = DateTime.Now;
+            journalToEdit.CreateDateTime = DateTime.Now;
             //if (!DateTime.Nullable(CreateDateTime))
             //{
             //    journalToEdit.CreateDateTime = CreateDateTime;
