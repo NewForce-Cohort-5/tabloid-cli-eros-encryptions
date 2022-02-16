@@ -56,22 +56,49 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Title, Content, CreateDateTime Journal WHERE Id = @id";
+                    cmd.CommandText = "SELECT Id, Title, Content, CreateDateTime FROM Journal WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
-                    SqlDataReader reader = cmd.ExecuteReader();
 
                     Journal journal = null;
 
-                    
-                    if (reader.Read())
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+
+                    //if (reader.Read())
+                    //{
+                    //    journal = new Journal
+                    //    {
+                    //        Id = id,
+                    //        Title = reader.GetString(reader.GetOrdinal("Title")),
+                    //        Content = reader.GetString(reader.GetOrdinal("Content")),
+                    //        CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime"))
+                    //    };
+                    //}
+
+
+                    while (reader.Read())
                     {
-                        journal = new Journal
+                        if (journal == null)
                         {
-                            Id = id,
-                            Title = reader.GetString(reader.GetOrdinal("Title")),
-                            Content = reader.GetString(reader.GetOrdinal("Content")),
-                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime"))
-                        };
+                            journal = new Journal()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Title = reader.GetString(reader.GetOrdinal("Title")),
+                                Content = reader.GetString(reader.GetOrdinal("Content")),
+                                CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                            };
+                        }
+
+                        //if (!reader.IsDBNull(reader.GetOrdinal("Id")))
+                        //{
+                        //    journal.Add(new Journal()
+                        //    {
+                        //        Id = reader.GetInt32(reader.GetOrdinal("TagId")),
+                        //        Title = reader.GetString(reader.GetOrdinal("Title")),
+                        //        Content = reader.GetString(reader.GetOrdinal("Content")),
+                        //        CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                        //    });
+                        //}
                     }
 
                     reader.Close();

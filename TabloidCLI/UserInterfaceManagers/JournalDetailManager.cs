@@ -50,10 +50,6 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine($"Title: {journal.Title}");
             Console.WriteLine($"Content: {journal.Content}");
             Console.WriteLine($"Date:{journal.CreateDateTime}");
-            //foreach (Tag tag in author.Tags)
-            //{
-            //    Console.WriteLine(" " + tag);
-            //}
             Console.WriteLine();
         }
 
