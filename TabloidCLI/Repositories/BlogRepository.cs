@@ -127,7 +127,7 @@ namespace TabloidCLI
                 {
                     cmd.CommandText = @"UPDATE Blog
                                                        SET Title = @title,
-                                                             Url = @url,
+                                                             Url = @url
                                                         WHERE id = @id";
 
                     cmd.Parameters.AddWithValue("@title", blog.Title);
