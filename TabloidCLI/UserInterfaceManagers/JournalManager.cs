@@ -145,6 +145,12 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 journalToEdit.Content = Content;
             }
+            Console.Write("New Date here (blank to leave unchanged: ");
+            journalToEdit.CreateDateTime = DateTime.Now;
+            //if (!DateTime.Nullable(CreateDateTime))
+            //{
+            //    journalToEdit.CreateDateTime = CreateDateTime;
+            //}
             
             journalToEdit.CreateDateTime = DateTime.Now;
             
