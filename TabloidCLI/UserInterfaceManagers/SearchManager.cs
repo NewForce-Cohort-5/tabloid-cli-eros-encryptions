@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using TabloidCLI.Models;
+
 
 namespace TabloidCLI.UserInterfaceManagers
 {
@@ -49,6 +51,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void SearchAuthors()
         {
+            ListTags();
             Console.Write("Tag> ");
             string tagName = Console.ReadLine();
 
@@ -86,7 +89,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Tag> ");
             string tagName = Console.ReadLine();
 
-            SearchResults<Blog> results = _tagRepository.SearchPosts(tagName);
+            SearchResults<Post> results = _tagRepository.SearchPosts(tagName);
 
             if (results.NoResultsFound)
             {
@@ -121,7 +124,15 @@ namespace TabloidCLI.UserInterfaceManagers
             
         }
 
-        
+        private void ListTags()
+        {
+            Console.WriteLine("Tag List: ");
+            List<Tag> tags = _tagRepository.GetAll();
+            foreach (Tag tag in tags)
+            {
+                Console.WriteLine(tag);
+            }
         }
+
     }
-}
+    }
