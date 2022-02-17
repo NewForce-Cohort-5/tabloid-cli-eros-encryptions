@@ -11,9 +11,10 @@ namespace TabloidCLI.UserInterfaceManagers
         public IUserInterfaceManager Execute()
         {
             Moose();
-            
-            //System.Threading.Thread.Sleep(5000);
-            
+
+            System.Threading.Thread.Sleep(5000);
+
+
             ChooseColor();
 
             Console.WriteLine("Main Menu");
