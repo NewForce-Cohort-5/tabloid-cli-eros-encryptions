@@ -9,6 +9,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            //ConsoleColorManager(this, CONNECTION_STRING);
+
             Console.WriteLine("Main Menu");
 
             Console.WriteLine(" 1) Journal Management");
