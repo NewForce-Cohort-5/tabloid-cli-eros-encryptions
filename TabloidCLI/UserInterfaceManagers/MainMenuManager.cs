@@ -14,6 +14,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
             System.Threading.Thread.Sleep(5000);
 
+
             ChooseColor();
 
             Console.WriteLine("Main Menu");

@@ -71,10 +71,15 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void ViewBlogPosts()
         {
+            Author author = _authorRepository.Get(_authorId);
+
             List<Post> posts = _postRepository.GetByAuthor(_authorId);
+            Console.WriteLine($"Blogs written by {author.FullName}");
+            int i = 1;
             foreach (Post post in posts)
             {
-                Console.WriteLine(post);
+                Console.WriteLine($"{i} {post.Title}");
+                i++;
             }
             Console.WriteLine();
         }
