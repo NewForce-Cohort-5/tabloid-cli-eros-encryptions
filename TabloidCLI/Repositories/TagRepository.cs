@@ -38,7 +38,7 @@ namespace TabloidCLI
                 }
             }
         }
-        //left join or right, also figure out what you need to select
+        
         public Tag Get(int id)
         {
             using (SqlConnection conn = Connection)
@@ -48,7 +48,6 @@ namespace TabloidCLI
                 {
                     cmd.CommandText = @"SELECT t.Id, t.Name
                                           FROM Tag t 
-                                               LEFT JOIN
                                          WHERE t.id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -62,7 +61,7 @@ namespace TabloidCLI
                         {
                             tag = new Tag()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Id = reader.GetInt32(reader.GetOrdinal("id")),
                                 Name = reader.GetString(reader.GetOrdinal("Name")),
                             };
                         }
@@ -98,10 +97,11 @@ namespace TabloidCLI
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"UPDATE Tag 
-                                           SET Name = @name,
+                                           SET Name = @Name
                                          WHERE id = @id";
 
-                    cmd.Parameters.AddWithValue("@name", tag.Name);
+                    cmd.Parameters.AddWithValue("@Name", tag.Name);
+                    cmd.Parameters.AddWithValue("@id", tag.Id);
 
                     cmd.ExecuteNonQuery();
                 }

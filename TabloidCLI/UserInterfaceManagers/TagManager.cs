@@ -51,6 +51,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void List()
         {
+            Console.WriteLine("Tag List: ");
             List<Tag> tags = _tagRepository.GetAll();
             foreach (Tag tag in tags)
             {
@@ -60,10 +61,9 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Add()
         {
-            Console.WriteLine("New Tag");
             Tag tag = new Tag();
 
-            Console.Write("Tag Name: ");
+            Console.Write("Please enter new tag name: ");
             tag.Name = Console.ReadLine();
 
             _tagRepository.Insert(tag);
