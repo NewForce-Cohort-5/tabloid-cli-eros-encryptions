@@ -69,6 +69,9 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine(journal.Title);
                 Console.WriteLine(journal.Content);
+                Console.WriteLine("-------------------");
+                Console.WriteLine("");
+
             }
         }
 
@@ -148,6 +151,9 @@ namespace TabloidCLI.UserInterfaceManagers
             //{
             //    journalToEdit.CreateDateTime = CreateDateTime;
             //}
+            
+            journalToEdit.CreateDateTime = DateTime.Now;
+            
 
             _journalRepository.Update(journalToEdit);
         }
