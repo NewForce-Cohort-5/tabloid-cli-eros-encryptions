@@ -19,6 +19,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine("------------------------");
             Console.WriteLine("Blog Menu");
             Console.WriteLine(" 1) List Blogs");
             Console.WriteLine(" 2) Blog Details");
@@ -27,6 +28,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 5) Remove Blog");
             Console.WriteLine(" 0) Go Back");
 
+            Console.WriteLine("------------------------");
             Console.WriteLine("> ");
             string choice = Console.ReadLine();
             switch (choice)
