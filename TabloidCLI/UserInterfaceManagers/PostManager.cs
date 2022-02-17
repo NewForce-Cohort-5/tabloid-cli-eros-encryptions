@@ -12,6 +12,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private string _connectionString;
         private AuthorRepository _authorRepository;
         private BlogRepository _blogRepository;
+        private NoteRepository _noteRepository; 
 
 
         //Make cunstructor that sets values for private strings.
@@ -22,6 +23,7 @@ namespace TabloidCLI.UserInterfaceManagers
             _connectionString = connectionString;
             _authorRepository = new AuthorRepository(connectionString);
             _blogRepository = new BlogRepository(connectionString);
+            _noteRepository = new NoteRepository(connectionString);
         }
 
         public IUserInterfaceManager Execute()
@@ -63,7 +65,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     Remove();
                     return this;
                 case "6":
-                    
+                   return new NoteManager(this, _connectionString);
                 case "0":
                     return _parentUI;
                 default:
