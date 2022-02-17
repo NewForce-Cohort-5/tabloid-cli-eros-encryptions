@@ -96,5 +96,82 @@ namespace TabloidCLI
                 }
             }
         }
+
+        public SearchResults<Blog> SearchBlogs(string tagName)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT a.id,
+                                               a.Title,
+                                               a.Url                                               
+                                          FROM Blog a
+                                               LEFT JOIN BlogTag at on a.Id = at.BlogId
+                                               LEFT JOIN Tag t on t.Id = at.TagId
+                                         WHERE t.Title LIKE @title";
+                    cmd.Parameters.AddWithValue("@title", $"%{tagName}%");
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    SearchResults<Blog> results = new SearchResults<Blog>();
+                    while (reader.Read())
+                    {
+                        Blog blog = new Blog()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Url = reader.GetString(reader.GetOrdinal("Url")),
+                            
+                        };
+                        results.Add(blog);
+                    }
+
+                    reader.Close();
+
+                    return results;
+                }
+            }
+        }
+
+        public SearchResults<Post> SearchPosts(string tagName)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT a.id,
+                                               a.Title,
+                                               a.Url,
+                                               a. AuthorId,
+                                               a. BlogId
+
+                                          FROM Blog a
+                                               LEFT JOIN BlogTag at on a.Id = at.BlogId
+                                               LEFT JOIN Tag t on t.Id = at.TagId
+                                         WHERE t.Title LIKE @title";
+                    cmd.Parameters.AddWithValue("@title", $"%{tagName}%");
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    SearchResults<Post> results = new SearchResults<Post>();
+                    while (reader.Read())
+                    {
+                        Post post = new Post()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Url = reader.GetString(reader.GetOrdinal("Url")),
+                            
+                        };
+                        results.Add(post);
+                    }
+
+                    reader.Close();
+
+                    return results;
+                }
+            }
+        }
     }
 }
