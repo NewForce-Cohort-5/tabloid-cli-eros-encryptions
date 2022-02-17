@@ -56,6 +56,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine(note.Title);
                 Console.WriteLine(note.Content);
+                Console.WriteLine($"Date:{note.CreateDateTime}");
                 Console.WriteLine("-------------------");
             }
         }
