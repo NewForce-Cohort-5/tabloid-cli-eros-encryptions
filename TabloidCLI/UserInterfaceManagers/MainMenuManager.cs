@@ -26,9 +26,12 @@ namespace TabloidCLI.UserInterfaceManagers
 
                 case "1": return new JournalManager(this, CONNECTION_STRING);
                 case "2": return new BlogManager(this, CONNECTION_STRING);
+<<<<<<< HEAD
 
+=======
+>>>>>>> b5ba69f0bf57164fab987afd46a53bed736e87bc
                 case "3": return new AuthorManager(this, CONNECTION_STRING);
-                case "4": throw new NotImplementedException();
+                case "4": return new PostManager(this, CONNECTION_STRING);
                 case "5": return new TagManager(this, CONNECTION_STRING);
                 case "6": return new SearchManager(this, CONNECTION_STRING);
                 case "0":

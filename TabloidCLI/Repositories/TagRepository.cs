@@ -38,10 +38,40 @@ namespace TabloidCLI
                 }
             }
         }
-        //left join or right, also figure out what you need to select
+        
         public Tag Get(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT t.Id, t.Name
+                                          FROM Tag t 
+                                         WHERE t.id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    Tag tag = null;
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (tag == null)
+                        {
+                            tag = new Tag()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                            };
+                        }
+                    }
+
+                    reader.Close();
+
+                    return tag;
+                }
+            }
         }
 
         public void Insert(Tag tag)
@@ -53,7 +83,7 @@ namespace TabloidCLI
                 {
                     cmd.CommandText = @"INSERT INTO Tag (Name)
                                                      VALUES (@name)";
-                    cmd.Parameters.AddWithValue("@firstName",tag.Name);  
+                    cmd.Parameters.AddWithValue("@name",tag.Name);  
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -67,11 +97,11 @@ namespace TabloidCLI
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"UPDATE Tag 
-                                           SET Name = @name,
+                                           SET Name = @Name
                                          WHERE id = @id";
 
-                    cmd.Parameters.AddWithValue("@name", tag.Name);
-                    
+                    cmd.Parameters.AddWithValue("@Name", tag.Name);
+                    cmd.Parameters.AddWithValue("@id", tag.Id);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -92,7 +122,8 @@ namespace TabloidCLI
                 }
             }
         }
-        //what does LIKE do in the query, is it right
+
+        //unsure if the cmd query is correct
         public SearchResults<Author> SearchAuthors(string tagName)
         {
             using (SqlConnection conn = Connection)
@@ -130,6 +161,7 @@ namespace TabloidCLI
                 }
             }
         }
+        // unsure if the query is correct
         public SearchResults<Blog> SearchResultsBlog(string tagName)
         {
             using (SqlConnection conn = Connection)
