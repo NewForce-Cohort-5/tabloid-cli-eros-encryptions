@@ -51,9 +51,9 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void SearchAuthors()
         {
-            ListTags();
-            Console.Write("Tag> ");
-            string tagName = Console.ReadLine();
+            Tag tag = ChooseTag();
+            string tagName = tag.Name;
+
 
             SearchResults<Author> results = _tagRepository.SearchAuthors(tagName);
 
@@ -67,10 +67,42 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        private Tag ChooseTag(string prompt = null)
+        {
+            if (prompt == null)
+            {
+                prompt = "Please choose a Tag:";
+            }
+
+            Console.WriteLine(prompt);
+
+            List<Tag> tags = _tagRepository.GetAll();
+
+            for (int i = 0; i < tags.Count; i++)
+            {
+                Tag tag = tags[i];
+                Console.WriteLine($" {i + 1}) {tag.Name}");
+            }
+            Console.Write("> ");
+
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                return tags[choice - 1];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection");
+                return null;
+            }
+        }
+
+
         private void SearchBlogs()
         {
-            Console.Write("Tag> ");
-            string tagName = Console.ReadLine();
+            Tag tag = ChooseTag();
+            string tagName = tag.Name;
 
             SearchResults<Blog> results = _tagRepository.SearchBlogs(tagName);
 
@@ -86,8 +118,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void SearchPosts()
         {
-            Console.Write("Tag> ");
-            string tagName = Console.ReadLine();
+            Tag tag = ChooseTag();
+            string tagName = tag.Name;
 
             SearchResults<Post> results = _tagRepository.SearchPosts(tagName);
 
@@ -103,8 +135,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void SearchAll()
         {
-            Console.Write("Tag> ");
-            string tagName = Console.ReadLine();
+            Tag tag = ChooseTag();
+            string tagName = tag.Name;
 
             SearchResults<Blog> blogResults = _tagRepository.SearchBlogs(tagName);
             SearchResults<Author>authorResults = _tagRepository.SearchAuthors(tagName);
@@ -124,15 +156,15 @@ namespace TabloidCLI.UserInterfaceManagers
             
         }
 
-        private void ListTags()
-        {
-            Console.WriteLine("Tag List: ");
-            List<Tag> tags = _tagRepository.GetAll();
-            foreach (Tag tag in tags)
-            {
-                Console.WriteLine(tag);
-            }
-        }
+        //private void ListTags()
+        //{
+        //    Console.WriteLine("Tag List: ");
+        //    List<Tag> tags = _tagRepository.GetAll();
+        //    foreach (Tag tag in tags)
+        //    {
+        //        Console.WriteLine(tag);
+        //    }
+        //}
 
     }
     }
