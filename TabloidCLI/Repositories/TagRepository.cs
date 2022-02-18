@@ -161,22 +161,22 @@ namespace TabloidCLI
                 }
             }
         }
-        // unsure if the query is correct
-        public SearchResults<Blog> SearchResultsBlog(string tagName)
+
+        public SearchResults<Blog> SearchBlogs(string tagName)
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT b.id,
-                                               b.Title,
-                                               b.Url
-                                          FROM Blog b
-                                               LEFT JOIN BlogTag at on b.Id = bt.BlogId
-                                               LEFT JOIN Tag t on t.Id = bt.TagId
-                                         WHERE t.Name LIKE @name";
-                    cmd.Parameters.AddWithValue("@name", $"%{tagName}%");
+                    cmd.CommandText = @"SELECT a.id,
+                                               a.Title,
+                                               a.Url                                               
+                                          FROM Blog a
+                                               LEFT JOIN BlogTag at on a.Id = at.BlogId
+                                               LEFT JOIN Tag t on t.Id = at.TagId
+                                         WHERE t.Title LIKE @title";
+                    cmd.Parameters.AddWithValue("@title", $"%{tagName}%");
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     SearchResults<Blog> results = new SearchResults<Blog>();
@@ -186,7 +186,8 @@ namespace TabloidCLI
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
-                            Url = reader.GetString(reader.GetOrdinal("Url"))
+                            Url = reader.GetString(reader.GetOrdinal("Url")),
+                            
                         };
                         results.Add(blog);
                     }
@@ -197,25 +198,25 @@ namespace TabloidCLI
                 }
             }
         }
-        //do i need to left join basically the whole ERD?
-        public SearchResults<Post> SearchResultsPost(string tagName)
+
+        public SearchResults<Post> SearchPosts(string tagName)
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT p.id,
-                                               p.Title,
-                                               p.Url,
-                                               p.PublishDateTime,
-                                               p.AuthorId,
-                                               p.BlogId
-                                          FROM Post p
-                                               LEFT JOIN PostTag pt at on p.Id = pt.PostId
-                                               LEFT JOIN Tag t on t.Id = pt.TagId 
-                                         WHERE t.Name LIKE @name";
-                    cmd.Parameters.AddWithValue("@name", $"%{tagName}%");
+                    cmd.CommandText = @"SELECT a.id,
+                                               a.Title,
+                                               a.Url,
+                                               a. AuthorId,
+                                               a. BlogId
+
+                                          FROM Blog a
+                                               LEFT JOIN BlogTag at on a.Id = at.BlogId
+                                               LEFT JOIN Tag t on t.Id = at.TagId
+                                         WHERE t.Title LIKE @title";
+                    cmd.Parameters.AddWithValue("@title", $"%{tagName}%");
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     SearchResults<Post> results = new SearchResults<Post>();
@@ -226,9 +227,7 @@ namespace TabloidCLI
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             Url = reader.GetString(reader.GetOrdinal("Url")),
-                            PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
-                            //Author AuthorId = reader.GetInt32(reader.GetOrdinal("AuthorId")),
-                            //Blog BlogId = reader.GetInt32(reader.GetOrdinal("BlogId"))
+                            
                         };
                         results.Add(post);
                     }
