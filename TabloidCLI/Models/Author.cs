@@ -18,6 +18,7 @@ namespace TabloidCLI.Models
             }
         }
 
+        //Will only return this unless you ask for a specific property
         public override string ToString()
         {
             return FullName;
